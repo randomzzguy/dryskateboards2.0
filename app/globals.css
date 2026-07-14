@@ -1,0 +1,107 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* Raw Urban Streetwear Color Palette */
+  --color-background: #0a0a0a;
+  --color-foreground: #ffffff;
+  --color-card: #141414;
+  --color-card-foreground: #ffffff;
+  --color-primary: #ff0000;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #ffffff;
+  --color-secondary-foreground: #0a0a0a;
+  --color-muted: #1a1a1a;
+  --color-muted-foreground: #888888;
+  --color-accent: #ff0000;
+  --color-accent-foreground: #ffffff;
+  --color-border: #333333;
+  --color-ring: #ff0000;
+  --color-destructive: #ff0000;
+  --color-cream: #ffffff;
+  --color-charcoal: #1f1f1f;
+  --color-street-red: #ff0000;
+  --color-street-white: #ffffff;
+  --color-street-black: #0a0a0a;
+
+  /* Bold Streetwear Fonts */
+  --font-display: var(--font-display), 'Oswald', 'Impact', sans-serif;
+  --font-sans: 'Inter', 'Helvetica Neue', sans-serif;
+  --font-urban: var(--font-urban), 'Anton', 'Arial Black', sans-serif;
+
+  /* Radius — sharp edges for raw feel */
+  --radius: 0rem;
+  --radius-sm: 0rem;
+  --radius-md: 0rem;
+  --radius-lg: 0rem;
+
+  /* Sidebar (keep for shadcn compat) */
+  --color-sidebar: #141414;
+  --color-sidebar-foreground: #ffffff;
+  --color-sidebar-primary: #ff0000;
+  --color-sidebar-primary-foreground: #ffffff;
+  --color-sidebar-accent: #1a1a1a;
+  --color-sidebar-accent-foreground: #ffffff;
+  --color-sidebar-border: #333333;
+  --color-sidebar-ring: #ff0000;
+  --color-popover: #141414;
+  --color-popover-foreground: #ffffff;
+  --color-input: #1a1a1a;
+
+  /* Charts */
+  --color-chart-1: #ff0000;
+  --color-chart-2: #ffffff;
+  --color-chart-3: #333333;
+  --color-chart-4: #666666;
+  --color-chart-5: #1a1a1a;
+}
+ 
+:root {
+  color-scheme: dark;
+}
+
+/* Light theme overrides - toggled by adding .theme-light to the <html> element */
+.theme-light {
+  --color-background: #ffffff;
+  --color-foreground: #0a0a0a;
+  --color-card: #f5f5f5;
+  --color-card-foreground: #0a0a0a;
+  --color-primary: #ff0000;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #0a0a0a;
+  --color-muted: #e5e5e5;
+  --color-muted-foreground: #666666;
+  --color-accent: #ff0000;
+  --color-accent-foreground: #ffffff;
+  --color-border: #cccccc;
+  --color-ring: #ff0000;
+  --color-destructive: #ff0000;
+  --color-cream: #ffffff;
+  --color-charcoal: #333333;
+  --color-street-red: #ff0000;
+  --color-street-white: #ffffff;
+  --color-street-black: #0a0a0a;
+  --color-sidebar: #f5f5f5;
+  --color-sidebar-foreground: #0a0a0a;
+  --color-sidebar-primary: #ff0000;
+  --color-sidebar-primary-foreground: #ffffff;
+  --color-sidebar-accent: #e5e5e5;
+  --color-sidebar-accent-foreground: #0a0a0a;
+  --color-sidebar-border: #cccccc;
+  --color-sidebar-ring: #ff0000;
+  --color-popover: #f5f5f5;
+  --color-popover-foreground: #0a0a0a;
+  --color-input: #e5e5e5;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
