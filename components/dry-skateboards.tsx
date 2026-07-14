@@ -10,9 +10,19 @@ export default function DrySkateboards() {
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set())
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY)
+    let frame: number | null = null
+    const handleScroll = () => {
+      if (frame !== null) return
+      frame = requestAnimationFrame(() => {
+        setScrollY(window.scrollY)
+        frame = null
+      })
+    }
     window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      if (frame !== null) cancelAnimationFrame(frame)
+    }
   }, [])
 
   // Animated grain canvas
@@ -21,9 +31,8 @@ export default function DrySkateboards() {
     if (!canvas) return
     const ctx = canvas.getContext("2d")
     if (!ctx) return
-    let animId: number
-    const W = 300
-    const H = 300
+    const W = 160
+    const H = 160
     canvas.width = W
     canvas.height = H
     const imageData = ctx.createImageData(W, H)
@@ -34,10 +43,12 @@ export default function DrySkateboards() {
         d[i] = v; d[i + 1] = v; d[i + 2] = v; d[i + 3] = 35
       }
       ctx!.putImageData(imageData, 0, 0)
-      animId = requestAnimationFrame(drawNoise)
     }
     drawNoise()
-    return () => cancelAnimationFrame(animId)
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+
+    const intervalId = window.setInterval(drawNoise, 100)
+    return () => window.clearInterval(intervalId)
   }, [])
 
   // Intersection observer for scroll-reveal
@@ -79,7 +90,7 @@ export default function DrySkateboards() {
       name: "HEAT DECK 8.25\"",
       price: "AED 350",
       tag: "BOARDS",
-      img: "/assets/dryLogo.gif",
+      img: "/assets/board-logo.jpg",
       desc: "7-ply Canadian maple, desert pressed",
     },
     {
@@ -428,7 +439,7 @@ export default function DrySkateboards() {
 
             <div id="about-img" data-reveal className="relative min-h-[520px] overflow-hidden border-4 border-[var(--color-primary)] md:min-h-[680px]">
               <img
-                src="/assets/skate.gif"
+                src="/assets/skate.jpg"
                 alt="Skaters in front of graffiti tags in Abu Dhabi"
                 className="absolute inset-0 h-full w-full object-cover"
                 style={{
@@ -450,7 +461,7 @@ export default function DrySkateboards() {
       {/* ── MADE IN THE HEAT BANNER ── */}
       <section className="relative min-h-[420px] overflow-hidden border-b-4 border-[var(--color-primary)]" data-reveal id="banner">
         <img
-          src="/assets/MadeInTheHeat.gif"
+          src="/assets/made-in-heat.jpg"
           alt="MADE IN THE HEAT — DRY SKATEBOARDS"
           className="absolute inset-0 h-full w-full object-cover"
           style={{
@@ -566,7 +577,7 @@ export default function DrySkateboards() {
               }}
             >
               <img
-                src="/assets/dryLogo.gif"
+                src="/assets/board-logo.jpg"
                 alt="DRY Skateboards logo on lava texture"
                 className="h-full w-full object-cover"
                 style={{ filter: "contrast(1.25)", animation: "subtleScale 8s ease-in-out infinite alternate" }}
